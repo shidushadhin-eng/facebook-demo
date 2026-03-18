@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Home - Facebook Replica</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="topbar">
+    <div class="left">
+      <img class="logo" src="https://static.xx.fbcdn.net/rsrc.php/y1/r/4lCu2zih0ca.svg" alt="FB" />
+      <input class="search" placeholder="Search Facebook" />
+    </div>
+    <div class="right">
+      <div class="small">Home</div>
+      <div class="small">Profile</div>
+      <div class="small">Messages</div>
+      <div class="small">Notifications</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <aside class="leftbar">
+      <div class="card">
+          <div class="profile">
+          <img class="avatar" src="images/shadhin.svg" alt="me" />
+          <div>
+            <div><strong>Shadin TP</strong></div>
+            <div class="small">View your profile</div>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div><strong>Shortcuts</strong></div>
+        <ul class="small">
+          <li>Friends</li>
+          <li>Groups</li>
+          <li>Watch</li>
+          <li>Marketplace</li>
+          <li>Memories</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div><strong>Explore</strong></div>
+        <ul class="small">
+          <li>Events</li>
+          <li>Pages</li>
+          <li>Fundraisers</li>
+          <li>Saved</li>
+        </ul>
+      </div>
+    </aside>
+
+    <main class="feed">
+      <div class="card">
+        <div class="profile">
+          <img class="avatar" src="https://randomuser.me/api/portraits/men/45.jpg" alt="avatar" />
+          <input style="flex:1;padding:10px;border-radius:20px;border:1px solid #e6e6e6" placeholder="What's on your mind, Shadin?" />
+        </div>
+      </div>
+
+      <div id="posts"></div>
+    </main>
+
+    <aside class="rightbar">
+      <div class="card">
+        <div><strong>Sponsored</strong></div>
+        <div class="small">Meta • Ads</div>
+      </div>
+      <div class="card">
+        <div><strong>Contacts</strong></div>
+        <ul class="small">
+          <li>Anna K.</li>
+          <li>John P.</li>
+          <li>Ravi S.</li>
+          <li>Maria G.</li>
+        </ul>
+      </div>
+    </aside>
+  </div>
+
+  <script>
+    const posts = [
+      { name: 'Narendra modi', time: '2 hrs', text: 'IF THE WAR DONT STOP  — INDIA WILL TAKE ACTION!', image: null, avatar: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/The_official_portrait_of_Shri_Narendra_Modi%2C_the_Prime_Minister_of_the_Republic_of_India.jpg' },
+      { name: 'Mark Brown', time: '5 hrs', text: 'Hiking today was incredible. Nature resets everything.', image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200', avatar: 'https://randomuser.me/api/portraits/men/12.jpg' },
+      { name: 'Priya Singh', time: '1 day', text: 'Just finished a project — feeling productive!', image: null, avatar: 'https://randomuser.me/api/portraits/women/44.jpg' },
+      { name: 'Samuel Lee', time: '3 days', text: 'Throwback to last summer. Miss the travel days.', image: null, avatar: 'https://randomuser.me/api/portraits/men/33.jpg' },
+      { name: 'Fatima Noor', time: '1 week', text: 'Baked some cookies today 🍪', image: null, avatar: 'https://randomuser.me/api/portraits/women/29.jpg' },
+      { name: 'Campus Club', time: '2 weeks', text: 'Join our college farook college coding meetup next Friday!', image: null, avatar: 'https://randomuser.me/api/portraits/men/77.jpg' }
+    ];
+
+    function shuffle(a) {
+      for (let i = a.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [a[i], a[j]] = [a[j], a[i]];
+      }
+      return a;
+    }
+
+    function renderPosts() {
+      const container = document.getElementById('posts');
+      container.innerHTML = '';
+      const sample = shuffle(posts.slice()).slice(0, 5);
+      sample.forEach(p => {
+        const el = document.createElement('div');
+        el.className = 'card post';
+        el.innerHTML = `
+          <div class="profile">
+            <img class="avatar" src="${p.avatar}" alt="a" />
+            <div>
+              <div><strong>${p.name}</strong></div>
+              <div class="meta">${p.time} · Public</div>
+            </div>
+          </div>
+          <div style="margin-top:8px">${p.text}</div>
+          ${p.image ? `<img class="post-image" src="${p.image}" alt="post image">` : ''}
+          <div class="action-row">
+            <div class="action">Like</div>
+            <div class="action">Comment</div>
+            <div class="action">Share</div>
+          </div>
+        `;
+        container.appendChild(el);
+      });
+    }
+
+    renderPosts();
+  </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <style>
+        body {
+            font-family: Arial;
+            background-color: #f0f2f5;
+            margin: 0;
+        }
+
+        .header {
+            background-color: #1877f2;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+
+        .post {
+            background: white;
+            width: 500px;
+            margin: 20px auto;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+        }
+
+        .post h3 {
+            margin: 0;
+        }
+
+        .post p {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+    </html>

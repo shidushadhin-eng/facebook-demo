@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>body { background:#f0f2f5; }</style>
+</head>
+<body>
+  <div class="signup-container">
+    <div class="signup-card">
+      <h2>Create an account</h2>
+      <form id="signupForm">
+        <label for="username">Username</label>
+        <input id="username" name="username" required placeholder="Choose a username" />
+
+        <label for="password">Password</label>
+        <input id="password" name="password" type="password" required placeholder="Password" />
+
+        <label for="confirm">Confirm password</label>
+        <input id="confirm" name="confirm" type="password" required placeholder="Confirm password" />
+
+        <button type="submit">Create account</button>
+        <div class="msg" id="msg"></div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('signupForm');
+    const msg = document.getElementById('msg');
+
+    function getAccounts(){
+      try { return JSON.parse(localStorage.getItem('fb_accounts') || '[]'); } catch(e){ return []; }
+    }
+
+    form.addEventListener('submit', function(e){
+      e.preventDefault();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      const confirm = document.getElementById('confirm').value;
+      if(!username || !password){ msg.textContent = 'Please fill all fields.'; return; }
+      if(password !== confirm){ msg.textContent = 'Passwords do not match.'; return; }
+      const accounts = getAccounts();
+      if(accounts.some(a => a.username.toLowerCase() === username.toLowerCase())){ msg.textContent = 'Username already taken.'; return; }
+      accounts.push({ username: username, password: password });
+      localStorage.setItem('fb_accounts', JSON.stringify(accounts));
+      msg.style.color = 'green';
+      msg.textContent = 'Account created. Redirecting to login...';
+      setTimeout(() => { window.location.href = 'facebook.html'; }, 1200);
+    });
+  </script>
+</body>
+</html>

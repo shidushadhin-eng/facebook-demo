@@ -1,0 +1,127 @@
+body {
+    margin: 0;
+}
+
+.main{
+    background-color: rgb(239, 239, 244);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    min-height: 699px;
+}
+.left{background-color:rgb(239, 239, 244);
+    float: left;
+    border-radius: 0px ;
+    padding-left: 10px;
+}
+.right{background-color: rgb(246, 249, 246);
+  border-radius: 8px ;
+  padding-bottom: 24px;
+  padding-top: 10px;
+  padding-left:15px; ;
+  padding-right:15px;
+  box-shadow: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+
+}
+.button{
+    align-items: center;
+    width: 297px;
+    color: #fff;
+    background-color: #1877f2;
+    border-radius: 6px;
+    padding: 11px;
+    border: none;
+}
+.button:hover{
+    background-color: #388ac9;
+}
+.username{
+    width: 267px;
+    align-items: center;
+    border: 1px solid #b5b0b0;
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.username:hover{
+    background-color: #cfd4d8;
+}
+input:focus{
+    border: 3px solid #388ac9;
+    outline: none;
+}
+.password{
+    width: 267px;
+    border: 1px solid #b5b0b0;
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.password:hover{
+    background-color: #cfd4d8;
+}
+.creataccount{
+    align-items:center;
+    width: 197px;
+    color: aliceblue;
+    background-color: rgb(48, 200, 18);
+    border-radius: 6px;
+    padding: 11px;
+    border: none;
+    font-family:inherit;
+}
+.creataccount:hover{
+    background-color: rgb(45, 194, 16);;
+}
+.creataccount{ display: block; margin: 12px auto; }
+
+/* Signup page styles */
+.signup-container { max-width: 420px; margin: 48px auto; padding: 0 12px; }
+.signup-card { background: #fff; padding: 20px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.06); }
+.signup-card h2 { margin: 0 0 12px 0; }
+.signup-card label { display:block; margin-top:10px; font-size:14px; color:#333; }
+.signup-card input { width:100%; padding:10px 12px; border:1px solid #ddd; border-radius:6px; margin-top:6px; }
+.signup-card button { margin-top:16px; width:100%; padding:10px; background:#1877f2; color:#fff; border:none; border-radius:6px; cursor:pointer; }
+.msg { margin-top:10px; font-size:14px; }
+.text{
+    font-family: 'SFProDisplay-Regular', Helvetica, Arial, sans-serif;
+}
+.dd{
+    font-family:  'SFProText-Regular', 'Helvetica', Arial, sans-serif;
+}
+.link{
+    color: #b5b0b0;
+}
+.plus{
+     border: 3px solid #6e6d6d;
+     background-color: #615f5f;
+  border-radius: 6px;
+  padding: 5px 5px;
+}
+.forgot:hover{
+    background-color: #388ac9;
+    align-items: center;
+     border-radius: 6px;
+  padding: 0px 0px;
+}
+
+/* Home page / feed styles */
+.topbar { position: sticky; top: 0; background: #fff; display: flex; align-items: center; justify-content: space-between; padding: 10px 16px; border-bottom: 1px solid #e6e6e6; box-shadow: 0 1px 0 rgba(0,0,0,0.03); z-index: 10; }
+.topbar .left, .topbar .right { display: flex; align-items: center; gap: 12px; }
+.topbar img.logo { height: 30px; }
+.search { background: #f0f2f5; padding: 8px 12px; border-radius: 20px; width: 320px; border: none; }
+.container { display: flex; gap: 20px; max-width: 1100px; margin: 18px auto; padding: 0 12px; }
+.leftbar { width: 260px; }
+.feed { flex: 1; max-width: 640px; }
+.rightbar { width: 300px; }
+.card { background: #fff; border-radius: 8px; padding: 12px; margin-bottom: 12px; box-shadow: 0 2px 6px rgba(0,0,0,0.04); }
+.profile { display: flex; gap: 10px; align-items: center; }
+.avatar { width: 44px; height: 44px; border-radius: 50%; object-fit: cover; }
+.post .post-image { width: 100%; border-radius: 8px; margin-top: 10px; display: block; }
+.post .meta { color: #606770; font-size: 13px; margin-top: 4px; }
+.action-row { display: flex; gap: 8px; padding-top: 8px; border-top: 1px solid #efefef; margin-top: 8px; }
+.action { flex: 1; text-align: center; padding: 8px 4px; color: #606770; font-size: 14px; cursor: pointer; }
+.small { font-size: 13px; color: #606770; }
+@media (max-width: 900px) { .leftbar, .rightbar { display: none; } .container { max-width: 100%; padding: 0 8px; } }
+
+
