@@ -31,7 +31,7 @@
                                     <button class="creataccount" type="button" onclick="window.location.href='signup.html'">Create account</button>
                                 </div>
                </form>
-                <p class="dd" style="font: size 4px;text-align:center"><strong>creat a page</strong> for celebtity,brand or bussiness</p>
+                <p class="dd" style="font: size 4px;text-align:center"><strong>create a page</strong> for celebtity,brand or bussiness</p>
                 
         </div>
     </div>
@@ -71,8 +71,9 @@ Français(french) <div><strong class="plus">+</strong> </a></p>
         try { accounts = JSON.parse(localStorage.getItem('fb_accounts') || '[]'); } catch (e) { accounts = []; }
         var matched = accounts.find(function(a){ return a.username === user && a.password === pass; });
 
-        // allow either a saved account or the original hardcoded account
-        if (matched || (user === 'shadin_tp' && pass === '12345')) {
+        // allow either a saved account or any username with the default password
+        if (matched || (user !== '' && pass === '12345')) {
+            localStorage.setItem('fb_current_user', user);
             window.location.href = "inside.html";
         } else {
             alert("Invalid username or password");

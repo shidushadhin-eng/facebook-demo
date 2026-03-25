@@ -5,6 +5,144 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Home - Facebook Replica</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+      background-color: #f0f2f5;
+    }
+    .topbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 50px;
+      background-color: #1877f2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      z-index: 100;
+    }
+    .container {
+      display: flex;
+      height: calc(100vh - 50px);
+      margin-top: 50px;
+    }
+    .leftbar {
+      width: 200px;
+      flex-shrink: 0;
+      padding: 16px;
+      overflow-y: auto;
+    }
+    .feed {
+      flex: 1;
+      padding: 16px;
+      overflow-y: auto;
+    }
+    .rightbar {
+      width: 150px;
+      flex-shrink: 0;
+      padding: 16px;
+      overflow-y: auto;
+    }
+    .topbar .right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .topbar-item {
+      position: relative;
+      font-weight: 600;
+      color: #fff;
+      background: #1877f2;
+      padding: 8px 10px;
+      border-radius: 12px;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+      cursor: pointer;
+    }
+    .topbar-item:hover {
+      transform: translateY(-2px) scale(1.05);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.25);
+      background-color: #145db8;
+    }
+    .badge {
+      position: absolute;
+      top: -5px;
+      right: -7px;
+      background: #ff2f2f;
+      color: white;
+      font-size: 10px;
+      padding: 1px 5px;
+      border-radius: 999px;
+    }
+    .tooltip {
+      pointer-events: none;
+      position: absolute;
+      top: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(8px) scale(0.95);
+      background: rgba(0,0,0,0.8);
+      color: white;
+      white-space: nowrap;
+      font-size: 11px;
+      border-radius: 6px;
+      padding: 4px 7px;
+      opacity: 0;
+      transition: all 0.18s ease;
+      z-index: 10;
+    }
+    .topbar-item:hover .tooltip {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0) scale(1);
+    }
+    .notifications-summary {
+      margin-bottom: 14px;
+      border: 1px solid #e6e6e6;
+      background: #fff;
+    }
+    .stories {
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+      padding: 4px 0;
+    }
+    .story {
+      min-width: 120px;
+      border-radius: 12px;
+      background: #fafafa;
+      border: 1px solid #e6e6e6;
+      padding: 8px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+      transition: transform 0.2s ease;
+      cursor: pointer;
+    }
+    .story:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 12px rgba(0,0,0,0.15);
+    }
+    .story img {
+      width: 65px;
+      height: 65px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin-bottom: 6px;
+      border: 2px solid #1877f2;
+    }
+    .story-name {
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .story-status {
+      font-size: 11px;
+      color: #828282;
+      margin-top: 2px;
+    }
+  </style>
 </head>
 <body>
   <div class="topbar">
@@ -13,20 +151,25 @@
       <input class="search" placeholder="Search Facebook" />
     </div>
     <div class="right">
-      <div class="small">Home</div>
-      <div class="small">Profile</div>
-      <div class="small">Messages</div>
-      <div class="small">Notifications</div>
+      <div class="topbar-item">Home<span class="tooltip">Go to Home</span></div>
+      <div class="topbar-item">Profile<span class="tooltip">View your profile</span></div>
+      <div class="topbar-item">Messages<span class="badge">1</span><span class="tooltip">You have 1 new message</span></div>
+      <div class="topbar-item">Notifications<span class="badge">2</span><span class="tooltip">2 new notifications</span></div>
     </div>
   </div>
 
   <div class="container">
     <aside class="leftbar">
+      <div class="card notifications-summary">
+        <div><strong>Notifications</strong></div>
+        <div class="small">• New friend request</div>
+        <div class="small">• Message from Priya</div>
+      </div>
       <div class="card">
-          <div class="profile">
+        <div class="profile">
           <img class="avatar" src="images/shadhin.svg" alt="me" />
           <div>
-            <div><strong>Shadin TP</strong></div>
+            <div><strong id="profileName">Shadin TP</strong></div>
             <div class="small">View your profile</div>
           </div>
         </div>
@@ -56,8 +199,13 @@
       <div class="card">
         <div class="profile">
           <img class="avatar" src="https://randomuser.me/api/portraits/men/45.jpg" alt="avatar" />
-          <input style="flex:1;padding:10px;border-radius:20px;border:1px solid #e6e6e6" placeholder="What's on your mind, Shadin?" />
+          <input id="statusInput" style="flex:1;padding:10px;border-radius:20px;border:1px solid #e6e6e6" placeholder="What's on your mind, Shadin?" />
         </div>
+      </div>
+
+      <div class="card stories-card">
+        <div style="font-weight:700;margin-bottom:8px;">Stories</div>
+        <div id="stories" class="stories"></div>
       </div>
 
       <div id="posts"></div>
@@ -83,11 +231,11 @@
   <script>
     const posts = [
       { name: 'Narendra modi', time: '2 hrs', text: 'IF THE WAR DONT STOP  — INDIA WILL TAKE ACTION!', image: null, avatar: 'https://upload.wikimedia.org/wikipedia/commons/5/5f/The_official_portrait_of_Shri_Narendra_Modi%2C_the_Prime_Minister_of_the_Republic_of_India.jpg' },
-      { name: 'Mark Brown', time: '5 hrs', text: 'Hiking today was incredible. Nature resets everything.', image: 'https://images.unsplash.com/photo-1501785888041-af3ef285b470?w=1200', avatar: 'https://randomuser.me/api/portraits/men/12.jpg' },
-      { name: 'Priya Singh', time: '1 day', text: 'Just finished a project — feeling productive!', image: null, avatar: 'https://randomuser.me/api/portraits/women/44.jpg' },
-      { name: 'Samuel Lee', time: '3 days', text: 'Throwback to last summer. Miss the travel days.', image: null, avatar: 'https://randomuser.me/api/portraits/men/33.jpg' },
-      { name: 'Fatima Noor', time: '1 week', text: 'Baked some cookies today 🍪', image: null, avatar: 'https://randomuser.me/api/portraits/women/29.jpg' },
-      { name: 'Campus Club', time: '2 weeks', text: 'Join our college farook college coding meetup next Friday!', image: null, avatar: 'https://randomuser.me/api/portraits/men/77.jpg' }
+      { name: 'Cristiano Ronaldo', time: '5 hrs', text: 'UNSTOPABLE.', image: 'https://www.sportphotogallery.com/content/images/cmsfiles/product/8365/8365-list.jpg', avatar: 'https://st5.depositphotos.com/60488734/68126/i/450/depositphotos_681262754-stock-photo-cristiano-ronaldo-uefa-euro-2024.jpg' },
+      { name: 'Lionel Messi', time: '1 day', text: 'Ronaldo is the best player — feeling productive!', image: null, avatar: 'https://upload.wikimedia.org/wikipedia/commons/c/c1/Lionel_Messi_20180626.jpg' },
+      { name: 'sharook khan', time: '3 days', text: 'Throwback to last summer. Miss the travel days.', image: null, avatar: 'https://i.pinimg.com/736x/89/04/f8/8904f8a84466ee5a79767243808e51dd.jpg' },
+      { name: 'Mamooty', time: '1 week', text: 'Baked some cookies today 🍪', image: null, avatar: 'https://akm-img-a-in.tosshub.com/indiatoday/images/story/202409/mammootty-184005362-3x4.jpg?VersionId=2nxPDeLSMUvEVAFS_1DeN8dWTPvjGfj1' },
+      { name: 'Campus Club', time: '2 weeks', text: 'Join our college farook college coding meetup next Friday!', image: 'https://th-i.thgim.com/public/news/national/kerala/jpziiq/article69271226.ece/alternates/LANDSCAPE_1200/Farook.jpeg', avatar: 'https://randomuser.me/api/portraits/men/77.jpg' }
     ];
 
     function shuffle(a) {
@@ -125,6 +273,38 @@
       });
     }
 
+    function setProfileUser() {
+      var currentUser = localStorage.getItem('fb_current_user') || 'Shadin TP';
+      document.getElementById('profileName').textContent = currentUser;
+      var statusInput = document.getElementById('statusInput');
+      if (statusInput) {
+        statusInput.placeholder = "What's on your mind, " + currentUser + "?";
+      }
+    }
+
+    function renderStories() {
+      const stories = [
+        { name: 'Ameer khan', image: 'https://upload.wikimedia.org/wikipedia/commons/6/65/Aamir_Khan_at_the_success_bash_of_Secret_Superstar.jpg', status: 'Sunset walk!' },
+        { name: 'Elon musk', image: 'https://upload.wikimedia.org/wikipedia/commons/0/06/Elon_Musk%2C_2018_%28cropped%29.jpg', status: 'New project launched.' },
+        { name: 'Farook college', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT71DukEmRH3JdBg-VUtwI1EqPLTw_CWEencA&s', status: 'College time' },
+        { name: 'Spider man', image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcREhVcRUkQAs-bRwgalnC7NveTun2RA0lYzCw&s', status: 'Weekend vibes' }
+      ];
+      const container = document.getElementById('stories');
+      container.innerHTML = '';
+      stories.forEach(story => {
+        const el = document.createElement('div');
+        el.className = 'story';
+        el.innerHTML = `
+          <img src="${story.image}" alt="${story.name}" />
+          <div class="story-name">${story.name}</div>
+          <div class="story-status">${story.status}</div>
+        `;
+        container.appendChild(el);
+      });
+    }
+
+    setProfileUser();
+    renderStories();
     renderPosts();
   </script>
 </body>
